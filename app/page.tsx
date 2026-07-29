@@ -189,6 +189,7 @@ const emptyRatings = (): Record<Criterion, number> => ({ 시간: 0, 비용: 0, �
 const pageNames = ["상황 선택", "입체 경로", "준비물", "AI 평가", "계획 수정", "결과 포스터"];
 
 export default function Home() {
+  const [started, setStarted] = useState(false);
   const [page, setPage] = useState(0);
   const [selectedId, setSelectedId] = useState(1);
   const [ratings, setRatings] = useState<Record<Criterion, number>>(emptyRatings);
@@ -208,6 +209,46 @@ export default function Home() {
   const choose = (id: number) => {
     setSelectedId(id); setRatings(emptyRatings()); setReview(""); setRevision("");
   };
+
+  if (!started) {
+    return (
+      <main className="cover-page">
+        <div className="cover-image-wrap">
+          <img
+            src="/og.png"
+            alt="입체 여행 경로와 AI 안내 로봇이 있는 AI 여행 상담소"
+          />
+        </div>
+        <div className="cover-copy">
+          <span className="cover-subject">초등학교 5학년 실과 · 생활과 수송</span>
+          <h1>AI 여행 상담소</h1>
+          <p>
+            여행 경로를 탐험하고, AI의 추천을 꼼꼼히 판단한 뒤
+            <br />우리 모둠만의 발표 포스터를 완성해요.
+          </p>
+          <div className="cover-flow" aria-label="활동 순서">
+            <span><b>1</b>상황 선택</span>
+            <i>→</i>
+            <span><b>2</b>입체 경로</span>
+            <i>→</i>
+            <span><b>3</b>준비·평가</span>
+            <i>→</i>
+            <span><b>4</b>포스터</span>
+          </div>
+          <button
+            className="cover-start"
+            onClick={() => {
+              setStarted(true);
+              window.scrollTo({ top: 0 });
+            }}
+          >
+            활동 시작하기 <span>➜</span>
+          </button>
+          <small>총 6개 페이지 · 모둠 활동 약 40분</small>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <div className="journey-app">
